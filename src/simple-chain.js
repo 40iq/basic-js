@@ -5,57 +5,45 @@ const { NotImplementedError } = require("../extensions/index.js");
  *
  */
 const chainMaker = {
-  result: "",
+  result: [],
 
   getLength() {
-    return this.result.split("~~").length;
+    return this.result.length;
   },
 
   addLink(value) {
     let chainItem;
-    value ? (chainItem = value) : (chainItem = "");
+    value !== undefined ? (chainItem = value) : (chainItem = "");
 
-    if (this.result === "") {
-      this.result = `( ${chainItem} )`;
+    if (this.result.length === 0) {
+      this.result.push(`( ${chainItem} )`);
       return this;
     }
 
-    this.result += `~~( ${chainItem} )`;
+    this.result.push(`( ${chainItem} )`);
 
     return this;
   },
 
   removeLink(position) {
-    if (
-      isNaN(position) ||
-      position < 1 ||
-      position > this.result.split("~~").length
-    ) {
+    if (isNaN(position) || !this.result[position - 1]) {
+      this.result = [];
       throw new Error("You can't remove incorrect link!");
     }
 
-    this.result = this.result
-      .split("~~")
-      .map((item, index) => {
-        if (index === position - 1) {
-          return "";
-        }
-        return item;
-      })
-      .filter((item) => item.length > 0)
-      .join("~~");
+    this.result.splice(position - 1, 1);
 
     return this;
   },
 
   reverseChain() {
-    this.result = this.result.split("~~").reverse().join("~~");
+    this.result.reverse();
     return this;
   },
 
   finishChain() {
-    const chainResult = this.result;
-    this.result = "";
+    const chainResult = this.result.join("~~");
+    this.result = [];
     return chainResult;
   },
 };
