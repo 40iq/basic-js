@@ -20,17 +20,23 @@ function getMatrixElementsSum(matrix) {
   let result = 0;
   const rows = matrix.length;
   const cols = matrix[0].length;
-  // DODELAT NADO CIKL V CIKLE I USLOVIA
-  console.log(result);
+
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < cols; j++) {
+      if (!matrix[i - 1] || matrix[i - 1][j] !== 0) {
+        result += matrix[i][j];
+      }
+    }
+  }
   return result;
 }
 
-let a = [
-  [0, 1, 1, 2],
-  [0, 5, 0, 0],
-  [2, 0, 3, 3],
-];
-getMatrixElementsSum(a);
+// let a = [
+//   [0, 1, 1, 2],
+//   [0, 5, 0, 0],
+//   [2, 0, 3, 3],
+// ];
+// getMatrixElementsSum(a);
 
 module.exports = {
   getMatrixElementsSum,
