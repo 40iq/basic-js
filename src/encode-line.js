@@ -15,7 +15,7 @@ function encodeLine(str) {
   let result = "";
   let index = 1;
   for (let i = 0; i < arr.length; i += 1) {
-    console.log(index, arr[i], result);
+    // console.log(index, arr[i], result);
     if (arr[i] === arr[i + 1]) {
       index += 1;
     } else {
